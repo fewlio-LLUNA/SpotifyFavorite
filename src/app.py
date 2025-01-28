@@ -59,7 +59,9 @@ def top_tracks():
     top_tracks = [
         {
             'name': track['name'],
-            'artists': ', '.join(artist['name'] for artist in track['artists'])
+            'artists': ', '.join(artist['name'] for artist in track['artists']),
+            'image_url': track['album']['images'][1]['url'],  # 中サイズのジャケット画像
+            'preview_url': track['preview_url']  # プレビューURL
         }
         for track in results['items']
     ]

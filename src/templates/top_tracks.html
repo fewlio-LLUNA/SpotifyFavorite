@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./static/styles.css" />
+    <link rel="stylesheet" href="./static/tracks_styles.css" />
     <title>Your Top 10 Tracks</title>
 </head>
 <body>
     <h1>Your Top 10 Tracks</h1>
     <ul>
         {% for track in top_tracks %}
-            <li>{{ track.name }} by {{ track.artists }}</li>
+            <li>
+                {{ loop.index }}. 
+                <img src="{{ track.image_url }}" alt="{{ track.name }} album cover" width="50" height="50">
+                {{ track.name }} by {{ track.artists }}
+                <audio controls>
+                    <source src="{{ track.preview_url }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </li>
         {% endfor %}
     </ul>
     <a href="/">
