@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./static/styles.css" />
+    <title>Your Top 10 Tracks</title>
+</head>
+<body>
+    <h1>Your Top 10 Tracks</h1>
+    <ul>
+        {% for track in top_tracks %}
+            <li>{{ track.name }} by {{ track.artists }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/">
+        <button>戻る</button>
+    </a>
+</body>
+</html>

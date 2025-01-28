@@ -1,0 +1,70 @@
+/* 全体の背景色とテキストの色設定 */
+body {
+    background-color: #000; /* 黒色 */
+    color: #f7fcf7; /* 白 */
+    font-family: 'Arial', sans-serif;
+}
+
+/* コンテナの中央揃え */
+.container {
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #111; /* より濃い黒でコンテナを浮き上がらせる */
+    border-radius: 15px;
+}
+
+/* ヘッダーのスタイル */
+h1, h3 {
+    color: #00ff00; /* ネオン緑 */
+    text-shadow: 0 0 2px #00ff00, 0 0 5px #00ff00, 0 0 10px #00ff00;
+    text-align: center; /* 中央に配置 */
+}
+
+h1 {
+    font-size: 4em; 
+}
+
+h3 {
+    font-size: 2em; /* h3も適切に調整 */
+}
+
+/* ボタンのスタイル */
+button {
+    color: #080001; /* テキストの白色 */
+    background-color: #00ff00; /* ピンク色でかわいい印象 */
+    border: none;
+    border-radius: 25px; /* ボタンの丸み */
+    padding: 10px 20px;
+    font-family: 'Comic Sans MS', 'Arial', sans-serif; /* かわいいフォント */
+    font-size: 1.2em; /* 少し大きめのテキスト */
+    box-shadow: 0 0 5px #69ff82, 0 0 10px #00ff00, 0 0 15px #00ff00;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #32cd32; /* 少し濃い緑に変化 */
+    transform: scale(1.05); /* ホバー時に拡大 */
+}
+
+button:disabled {
+    background-color: #444; /* 非アクティブなボタンを灰色に */
+    color: #aaa; /* テキストも薄い灰色に */
+}
+
+/* テーブルのスタイル */
+.table {
+    color: #00ff00; /* テーブルのテキスト色 */
+    border-color: #00ff00;
+}
+
+.table th, .table td {
+    border: 1px solid #00ff00; /* ネオン緑のボーダー */
+}
+
+.table th {
+    background-color: #222; /* ヘッダーの背景を濃い灰色に */
+}
+
+.table tbody tr:hover {
+    background-color: #333; /* ホバー時に濃い灰色の背景 */
+}

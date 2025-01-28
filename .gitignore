@@ -1,0 +1,6 @@
+__pycache__/
+.venv/
+launch.json
+expenses.db
+.env
+.cache
