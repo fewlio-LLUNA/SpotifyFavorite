@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from flask import Flask, redirect, render_template, request, session, url_for
+from flask import Flask, redirect, render_template, request, send_from_directory, session, url_for
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 
@@ -22,6 +22,13 @@ sp_oauth = SpotifyOAuth(
     redirect_uri=SPOTIFY_REDIRECT_URI,
     scope="user-top-read",
 )
+
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(
+        os.path.join(app.root_path, "static"), "favicon.ico", mimetype="image/vnd.microsoft.icon"
+    )
 
 
 @app.route("/")

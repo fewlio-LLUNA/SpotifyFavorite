@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href=".static/favicon.ico">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./static/styles.css" />
     <link rel="stylesheet" href="./static/tracks_styles.css" />
@@ -66,10 +66,10 @@
                 {{ loop.index }}. 
                 <img src="{{ track.image_url }}" alt="{{ track.name }} album cover" width="50" height="50">
                 {{ track.name }} by {{ track.artists }}
-                <audio controls>
+                <!-- <audio controls>
                     <source src="{{ track.preview_url }}" type="audio/mpeg">
                     Your browser does not support the audio element.
-                </audio>
+                </audio> -->
             </li>
         {% endfor %}
     </ul>
