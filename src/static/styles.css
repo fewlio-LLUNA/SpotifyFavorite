@@ -97,3 +97,8 @@ button:disabled {
 button {
     margin-top: 10px;
 }
+
+.links-container {
+    margin-top: 70px;   /*下に動かす*/
+    text-align: center;
+}
