@@ -10,69 +10,18 @@
 </head>
 <body>
     <h1>Your Top 10 Tracks</h1>
-    <ul>
-        {% for track in top_tracks %}
-            <li><!DOCTYPE html>
-                <html lang="ja">
-                <head>
-                    <meta charset="UTF-8">
-                    <link rel="icon" href=".static/favicon.ico">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <link rel="stylesheet" href="./static/styles.css" />
-                    <link rel="stylesheet" href="./static/tracks_styles.css" />
-                    <title>Your Top 10 Tracks</title>
-                </head>
-                <body>
-                    <h1>Your Top 10 Tracks</h1>
-                    <div class="container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>ジャケット</th>
-                                    <th>曲名</th>
-                                    <th>アーティスト</th>
-                                    <th>プレビュー</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for track in top_tracks %}
-                                <tr>
-                                    <td>{{ loop.index }}</td>
-                                    <td><img src="{{ track.image_url }}" alt="{{ track.name }} album cover" width="50" height="50"></td>
-                                    <td>{{ track.name }}</td>
-                                    <td>{{ track.artists }}</td>
-                                    <td>
-                                        {% if track.preview_url %}
-                                            <audio controls>
-                                                <source src="{{ track.preview_url }}" type="audio/mpeg">
-                                                Your browser does not support the audio element.
-                                            </audio>
-                                        {% else %}
-                                            <span>プレビューなし</span>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    <a href="/">
-                        <button>戻る</button>
-                    </a>
-                </body>
-                </html>
-                
-                {{ loop.index }}. 
-                <img src="{{ track.image_url }}" alt="{{ track.name }} album cover" width="50" height="50">
-                {{ track.name }} by {{ track.artists }}
-                <!-- <audio controls>
-                    <source src="{{ track.preview_url }}" type="audio/mpeg">
-                    Your browser does not support the audio element.
-                </audio> -->
-            </li>
-        {% endfor %}
-    </ul>
+    <table>
+        <tbody>
+            {% for track in top_tracks %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td><img src="{{ track.image_url }}" alt="{{ track.name }} album cover" class="track-image"></td>
+                <td>{{ track.name }}</td>
+                <td>{{ track.artists }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     <a href="/">
         <button>戻る</button>
     </a>
