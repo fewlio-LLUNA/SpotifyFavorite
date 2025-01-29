@@ -9,7 +9,7 @@ body {
 .container {
     margin-top: 50px;
     padding: 20px;
-    background-color: #111; /* より濃い黒でコンテナを浮き上がらせる */
+    background-color: #000; /* より濃い黒でコンテナを浮き上がらせる */
     border-radius: 15px;
 }
 
@@ -67,4 +67,33 @@ button:disabled {
 
 .table tbody tr:hover {
     background-color: #333; /* ホバー時に濃い灰色の背景 */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+ 
+}
+.form-container {
+    transform: scale(1.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;         /*フォームを下に動かす*/
+}
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 300px;
+}
+.form-group label, .form-group input {
+    display: block;
+    width: 100%;
+}
+button {
+    margin-top: 10px;
 }
