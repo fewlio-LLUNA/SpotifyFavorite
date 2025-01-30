@@ -17,13 +17,15 @@
                 <td>{{ loop.index }}</td>
                 <td><img src="{{ track.image_url }}" alt="{{ track.name }} album cover" class="track-image"></td>
                 <td>{{ track.name }}</td>
-                <td>{{ track.artists }}</td>
+                <td class="artists">{{ track.artists }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="/">
-        <button>戻る</button>
-    </a>
+    <div class="button-container">
+        <a href="/">
+            <button>戻る</button>
+        </a>
+    </div>
 </body>
 </html>

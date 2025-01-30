@@ -1,5 +1,6 @@
 import os
 
+from dotenv import load_dotenv
 from flask import Flask, redirect, render_template, request, session, url_for
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
@@ -7,84 +8,65 @@ from spotipy.oauth2 import SpotifyOAuth
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # セッション管理のための秘密鍵
 
+load_dotenv()
+
+# Spotify APIのクライアントID、シークレット、およびリダイレクトURIを環境変数から取得
+SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
+SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
+SPOTIFY_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
+
+# Spotipyの認証設定
+sp_oauth = SpotifyOAuth(
+    client_id=SPOTIFY_CLIENT_ID,
+    client_secret=SPOTIFY_CLIENT_SECRET,
+    redirect_uri=SPOTIFY_REDIRECT_URI,
+    scope="user-top-read",
+)
+
 
 @app.route("/")
 def index():
     return render_template("index.html")
 
 
-@app.route("/submit", methods=["POST"])
-def submit():
-    session["client_id"] = request.form["client_id"]
-    session["client_secret"] = request.form["client_secret"]
-    session["redirect_uri"] = request.form["redirect_uris"]
-    return redirect(url_for("login"))
-
-
 @app.route("/login")
 def login():
-    if "client_id" not in session or "client_secret" not in session or "redirect_uri" not in session:
-        return redirect(url_for("index"))
-
-    sp_oauth = SpotifyOAuth(
-        client_id=session["client_id"],
-        client_secret=session["client_secret"],
-        redirect_uri=session["redirect_uri"],
-        scope="user-top-read",
-    )
-    return redirect(sp_oauth.get_authorize_url())
+    # Spotifyの認証URLにリダイレクト
+    auth_url = sp_oauth.get_authorize_url()
+    return redirect(auth_url)
 
 
 @app.route("/callback")
 def callback():
-    if "client_id" not in session or "client_secret" not in session or "redirect_uri" not in session:
-        return redirect(url_for("index"))
-
-    sp_oauth = SpotifyOAuth(
-        client_id=session["client_id"],
-        client_secret=session["client_secret"],
-        redirect_uri=session["redirect_uri"],
-        scope="user-top-read",
-    )
-
+    # 認証コードを取得し、アクセストークンを取得
     code = request.args.get("code")
-    if not code:
-        print("Error: No code received from Spotify")
-        return redirect(url_for("index"))
-
     token_info = sp_oauth.get_access_token(code)
-    if not token_info:
-        print("Error: Failed to retrieve token_info")
-        return redirect(url_for("index"))
-
     session["token_info"] = token_info
-    print("Token info saved:", session["token_info"])
-
     return redirect(url_for("top_tracks"))
 
 
 @app.route("/top-tracks")
 def top_tracks():
-    if "token_info" not in session:
-        print("Error: No token_info in session")
+    # トークンの有効性を確認し、必要に応じてリフレッシュ
+    token_info = session.get("token_info", None)
+    if not token_info:
         return redirect(url_for("login"))
 
-    token_info = session["token_info"]
-    print("Using token_info:", token_info)
+    if sp_oauth.is_token_expired(token_info):
+        token_info = sp_oauth.refresh_access_token(token_info["refresh_token"])
+        session["token_info"] = token_info
 
+    # Spotify APIクライアントを作成
     sp = Spotify(auth=token_info["access_token"])
+
+    # ユーザーのTOP10楽曲を取得
     results = sp.current_user_top_tracks(limit=10, time_range="long_term")
-
-    if not results or "items" not in results:
-        print("Error: Failed to fetch top tracks")
-        return redirect(url_for("index"))
-
     top_tracks = [
         {
             "name": track["name"],
             "artists": ", ".join(artist["name"] for artist in track["artists"]),
-            "image_url": track["album"]["images"][1]["url"],
-            "preview_url": track["preview_url"],
+            "image_url": track["album"]["images"][1]["url"],  # 中サイズのジャケット画像
+            # "preview_url": track["preview_url"],  # プレビューURL
         }
         for track in results["items"]
     ]
