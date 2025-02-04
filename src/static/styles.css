@@ -39,7 +39,15 @@ button {
     font-size: 1.2em; /* 少し大きめのテキスト */
     box-shadow: 0 0 5px #69ff82, 0 0 10px #00ff00, 0 0 15px #00ff00;
     transition: background-color 0.3s, transform 0.3s;
+    margin-top: 20px; /* ボタンを少し下げる */
 }
+
+a {
+    display: block; /* インライン要素の <a> をブロック要素にする */
+    text-align: center; /* ボタンを中央揃え */
+    margin-top: 50px; /* 🔽 ボタン全体を下に下げる */
+}
+
 
 button:hover {
     background-color: #32cd32; /* 少し濃い緑に変化 */
@@ -83,7 +91,7 @@ button:disabled {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 80px;         /*フォームを下に動かす*/
+    margin-top: 50px;         /*フォームを下に動かす*/
 }
 .form-group {
     margin-bottom: 15px;
@@ -99,6 +107,91 @@ button {
 }
 
 .links-container {
-    margin-top: 70px;   /*下に動かす*/
+    margin-top: 50px;   /*下に動かす*/
     text-align: center;
+    color: #00ff00; /* ネオン緑 */
+    text-decoration: none; /* 下線をなくす */
+    font-size: 1.0em;
+    transition: color 0.3s, text-shadow 0.3s;
+    margin-bottom: 0px; /* 🔽 リンク同士の間隔を狭くする */
+}
+
+.links-container a {
+    display: block;
+    margin: 5px 0; /* 🔽 間隔を狭くする */
+}
+
+
+.links-container a:hover {
+    color: #32cd32; /* ホバー時に明るい緑 */
+    text-shadow: 0 0 5px #32cd32, 0 0 10px #32cd32;
+}
+
+.links-container a {
+    color: #46a153; /* デフォルトは鮮やかな青 */
+    font-size: 1.2em;
+    transition: color 0.3s, text-shadow 0.3s;
+}
+
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #000;
+    padding: 10px 0;
+}
+
+.links-container  { margin-bottom: 5px; }
+
+.carousel-track {
+    display: flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: scrollLeft 30s linear infinite; /* 無限ループ */
+}
+
+.carousel-track img {
+    width: 130px;
+    height: 130px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+}
+
+@keyframes scrollLeft {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.carousel-container {
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #000;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.carousel-track {
+    display: flex;
+    gap: 20px;
+    white-space: nowrap;
+    animation: scrollLeft 25s linear infinite; /* ⏳ ゆっくりスクロール */
+}
+
+/* 画像スタイル */
+.carousel-track img {
+    width: 130px;
+    height: 130px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
 }
