@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./static/styles.css" />
-    <link rel="stylesheet" href="./static/tracks_styles.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='tracks_styles.css') }}" />
     <title>Your Top 10 Tracks</title>
 </head>
 <body>
     <h1>Your Top 10 Tracks</h1>
+    
+    {% if message %}
+      <p class="message">{{ message }}</p>
+    {% endif %}
+    
     <table>
         <tbody>
             {% for track in top_tracks %}
