@@ -15,14 +15,11 @@ DEFAULT_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
 
 # セッションに保存された値（またはデフォルト）を用いてSpotifyOAuthインスタンスを生成するヘルパー関数
 def get_spotify_oauth():
-    user_creds = session.get("user_creds")
-    if not user_creds:
-        # ユーザーのAPI情報がない場合はエラーにする（あるいは適切な処理を行う）
-        raise ValueError("ユーザーのAPI情報が見つかりません。再度フォームから入力してください。")
-
-    client_id = user_creds.get("client_id")
-    client_secret = user_creds.get("client_secret")
-    redirect_uri = user_creds.get("redirect_uri")
+    # user_creds にユーザーBの情報が入っていればそれを使う
+    user_creds = session.get("user_creds", {})
+    client_id = user_creds.get("client_id") or DEFAULT_CLIENT_ID
+    client_secret = user_creds.get("client_secret") or DEFAULT_CLIENT_SECRET
+    redirect_uri = user_creds.get("redirect_uri") or DEFAULT_REDIRECT_URI
 
     print("Using credentials:")
     print("Client ID:", client_id)
@@ -53,18 +50,16 @@ def submit():
     if not all([client_id, client_secret, redirect_uri]):
         return "すべての項目を入力してください。", 400
 
-    # ユーザー情報を1つの辞書にまとめてセッションに保存する
+    # ユーザー情報を1つの辞書にまとめてセッションに保存（トップレベルには保存しない）
     session["user_creds"] = {
         "client_id": client_id,
         "client_secret": client_secret,
         "redirect_uri": redirect_uri,
     }
 
-    # 既存の他のキーがあればクリアする（混在を防ぐため）
-    for key in ["client_id", "client_secret", "redirect_uri"]:
-        session.pop(key, None)
-
     print("フォームから受け取ったユーザー情報をセッションに保存しました:", session["user_creds"])
+
+    # 入力値を保存後、ログイン開始画面へ遷移
     return redirect(url_for("login_page"))
 
 
