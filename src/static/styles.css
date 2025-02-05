@@ -39,13 +39,13 @@ button {
     font-size: 1.2em; /* 少し大きめのテキスト */
     box-shadow: 0 0 5px #69ff82, 0 0 10px #00ff00, 0 0 15px #00ff00;
     transition: background-color 0.3s, transform 0.3s;
-    margin-top: 20px; /* ボタンを少し下げる */
+    margin-top: 40px; /* ボタンを少し下げる */
 }
 
 a {
     display: block; /* インライン要素の <a> をブロック要素にする */
     text-align: center; /* ボタンを中央揃え */
-    margin-top: 50px; /* 🔽 ボタン全体を下に下げる */
+    margin-top: 70px; /* 🔽 ボタン全体を下に下げる */
 }
 
 
@@ -103,7 +103,9 @@ button:disabled {
     width: 100%;
 }
 button {
-    margin-top: 10px;
+    margin-top: 2px;
+    padding: 8px 16px; /* ボタンの内側の余白を小さく */
+    font-size: 1em; /* 文字サイズを小さく */
 }
 
 .links-container {
@@ -118,7 +120,7 @@ button {
 
 .links-container a {
     display: block;
-    margin: 5px 0; /* 🔽 間隔を狭くする */
+    margin: 10px 0; /* 🔽 間隔を狭くする */
 }
 
 
