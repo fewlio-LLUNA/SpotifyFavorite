@@ -146,4 +146,4 @@ def top_tracks():
     return render_template("top_tracks.html", top_tracks=top_tracks, message=message)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
