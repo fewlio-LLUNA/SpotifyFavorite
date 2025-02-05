@@ -6,6 +6,7 @@ RUN pip install charset-normalizer==3.4.0
 RUN pip install click==8.1.7
 RUN pip install colorama==0.4.6
 RUN pip install Flask==3.1.0
+RUN pip install Flask-Session==0.8.0
 RUN pip install greenlet==3.1.1
 RUN pip install idna==3.10
 RUN pip install itsdangerous==2.2.0
