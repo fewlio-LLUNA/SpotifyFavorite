@@ -40,6 +40,7 @@ button {
     box-shadow: 0 0 5px #69ff82, 0 0 10px #00ff00, 0 0 15px #00ff00;
     transition: background-color 0.3s, transform 0.3s;
     margin-top: 40px; /* ボタンを少し下げる */
+    margin-bottom: 20px;
 }
 
 a {
@@ -146,7 +147,9 @@ button {
     padding: 10px 0;
 }
 
-.links-container  { margin-bottom: 5px; }
+.links-container  { 
+    margin-bottom: 230px; 
+}
 
 .carousel-track {
     display: flex;
