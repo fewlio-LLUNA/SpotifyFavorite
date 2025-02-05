@@ -5,15 +5,19 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
-    <title>Spotify Top Tracks</title>
+    <title>Spotify Favorite</title>
 </head>
 
 <body>
     <div class="container">
-        <h1>Spotify Top Tracks</h1>
+        <h1>Spotify Favorite</h1>
+        <div class="message">
         <p>あなたがSpotifyでよく聞いていた楽曲を1～10曲表示します。</p>
-        <p>ご利用にはSpotifyアカウントの作成、Spotify for Developerの登録が必要です。</p>
-        <p>再生した楽曲が極めて少ない場合、ランキングが表示されない可能性があります。</p>
+        <p>- 注意事項 -<br>
+            ・ご利用にはSpotifyアカウントの作成、及びSpotify for Developersの登録が必要です。<br>
+            ・再生した楽曲が極めて少ない場合は楽曲情報を取得できません。<br>
+            ・Redirect URIには予め「http://(ipアドレス)/callback」を設定する必要があります。</p>
+        </div>
         
         <form action="/submit" method="POST" class="form-container">
             <div class="form-group">
