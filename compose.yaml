@@ -3,5 +3,6 @@ services:
     build: .
     ports:
       - "80:5000"
+    working_dir: /usr/src/app
     volumes:
       - ./src:/usr/src/app
