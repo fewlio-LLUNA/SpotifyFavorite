@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./static/styles.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
     <title>Spotify Top Tracks</title>
 </head>
 
@@ -12,9 +12,11 @@
     <div class="container">
         <h1>Spotify Top Tracks</h1>
         <p>あなたがSpotifyでよく聞いていた楽曲を10曲表示します。</p>
-        <p>ご利用にはspotifyアカウントを作成し、spotify developerへの登録が必要です。</p>
+        <p>ご利用にはSpotifyアカウントを作成し、Spotify Developerへの登録が必要です。</p>
         
          <form action="/submit" method="POST" class="form-container">
+        <!-- Spotify API情報を入力するフォーム -->
+        <form action="/submit" method="POST" class="form-container">
             <div class="form-group">
                 <label for="client_id">Client ID</label>
                 <input type="text" id="client_id" name="client_id" required>
@@ -26,16 +28,12 @@
             </div>
             
             <div class="form-group">
-                <label for="redirect_uris">Redirect URIs</label>
-                <input type="text" id="redirect_uris" name="redirect_uris" required>
+                <label for="redirect_uri">Redirect URI</label>
+                <input type="text" id="redirect_uri" name="redirect_uri" required>
             </div>
             
-        </form> 
-
-        <a href="/login">
-            <button>あなたのTOP10を表示する</button>
-        </a>
-    
+            <button type="submit">送信</button>
+        </form>
 
         <div class="links-container">
             <a href="https://www.spotify.com/signup" target="_blank">Spotifyアカウントを持っていない方はこちら</a>
