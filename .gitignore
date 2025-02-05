@@ -4,3 +4,6 @@ launch.json
 expenses.db
 .env
 .cache
+.cache-974e0b4861b1473fafc8b262da85f426
+.cache-daa82a906c384f42bd8c6561607dcb59
+flask_session
