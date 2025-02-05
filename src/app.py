@@ -1,13 +1,18 @@
 import os
 
 from flask import Flask, abort, redirect, render_template, request, session, url_for
+from flask_session import Session  # サーバーサイドセッションを利用
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
 
 app = Flask(__name__)
 app.secret_key = "SAMPLE_KEY"
 
-# 開発者A用の環境変数はあくまで参考情報として残す（今回の処理では利用しない）
+# サーバーサイドセッションの設定（filesystemなど）
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
+# 開発者A用の環境変数は参考情報として残すが、今回はユーザー入力がなければエラーにする
 DEFAULT_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 DEFAULT_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
 DEFAULT_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
@@ -33,7 +38,7 @@ def get_spotify_oauth():
     print("Client Secret:", client_secret)
     print("Redirect URI:", redirect_uri)
 
-    # ユーザーごとにキャッシュファイルを分ける
+    # ユーザーごとにキャッシュファイルを分ける（これにより以前のキャッシュと混在しない）
     cache_path = f".cache-{client_id}"
 
     return SpotifyOAuth(
@@ -60,7 +65,7 @@ def submit():
     if not all([client_id, client_secret, redirect_uri]):
         return "すべての項目を入力してください。", 400
 
-    # ユーザー情報はトップレベルではなく、一つの辞書として保存
+    # ユーザー情報は必ず「user_creds」に保存（他の場所には保存しない）
     session["user_creds"] = {
         "client_id": client_id,
         "client_secret": client_secret,
@@ -103,7 +108,6 @@ def callback():
     try:
         token_info = sp_oauth.get_access_token(code)
     except Exception as e:
-        # エラー発生時は詳細をログに出す
         print("get_access_token error:", e)
         return str(e), 400
 
