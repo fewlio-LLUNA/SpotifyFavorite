@@ -185,7 +185,7 @@ button {
     display: flex;
     gap: 20px;
     white-space: nowrap;
-    animation: scrollLeft 25s linear infinite; /* ⏳ ゆっくりスクロール */
+    
 }
 
 /* 画像スタイル */
