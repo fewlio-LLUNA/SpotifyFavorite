@@ -1,9 +1,8 @@
 import os
-
 from flask import Flask, abort, redirect, render_template, request, session, url_for
-from flask_session import Session  # サーバーサイドセッションを利用
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyOAuth
+from flask_session import Session  # サーバーサイドセッションを利用
 
 app = Flask(__name__)
 app.secret_key = "SAMPLE_KEY"
@@ -17,14 +16,12 @@ DEFAULT_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 DEFAULT_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
 DEFAULT_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
 
-
 # ユーザーが入力したAPI情報が必ずセッションにあるか確認する関数
 def get_user_creds():
     creds = session.get("user_creds")
     if not creds or not all([creds.get("client_id"), creds.get("client_secret"), creds.get("redirect_uri")]):
         abort(400, description="ユーザーのAPI情報が正しく設定されていません。再度入力してください。")
     return creds
-
 
 # ユーザーのAPI情報を使ってSpotifyOAuthのインスタンスを生成
 def get_spotify_oauth():
@@ -49,11 +46,9 @@ def get_spotify_oauth():
         cache_path=cache_path,
     )
 
-
 @app.route("/")
 def index():
     return render_template("index.html")
-
 
 @app.route("/submit", methods=["POST"])
 def submit():
@@ -74,12 +69,10 @@ def submit():
     print("フォームから受け取ったユーザー情報をセッションに保存しました:", session["user_creds"])
     return redirect(url_for("login_page"))
 
-
 @app.route("/login_page")
 def login_page():
     print("login_page セッションの内容:", dict(session))
     return render_template("login.html")
-
 
 @app.route("/login")
 def login():
@@ -91,7 +84,6 @@ def login():
 
     auth_url = sp_oauth.get_authorize_url()
     return redirect(auth_url)
-
 
 @app.route("/callback")
 def callback():
@@ -113,7 +105,6 @@ def callback():
 
     session["token_info"] = token_info
     return redirect(url_for("top_tracks"))
-
 
 @app.route("/top-tracks")
 def top_tracks():
@@ -153,7 +144,6 @@ def top_tracks():
         for track in tracks
     ]
     return render_template("top_tracks.html", top_tracks=top_tracks, message=message)
-
 
 if __name__ == "__main__":
     app.run(debug=True)
