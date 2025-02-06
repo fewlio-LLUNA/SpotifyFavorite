@@ -11,7 +11,7 @@ app.secret_key = "SAMPLE_KEY"
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# 開発者A用の環境変数は参考情報として残すが、今回はユーザー入力がなければエラーにする
+# 開発者A用の環境変数は参考情報として残す
 DEFAULT_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 DEFAULT_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
 DEFAULT_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
@@ -23,7 +23,7 @@ def get_user_creds():
         abort(400, description="ユーザーのAPI情報が正しく設定されていません。再度入力してください。")
     return creds
 
-# ユーザーのAPI情報を使ってSpotifyOAuthのインスタンスを生成
+# API情報を使ってSpotifyOAuthのインスタンスを生成
 def get_spotify_oauth():
     creds = get_user_creds()
     client_id = creds["client_id"]
@@ -35,7 +35,7 @@ def get_spotify_oauth():
     print("Client Secret:", client_secret)
     print("Redirect URI:", redirect_uri)
 
-    # ユーザーごとにキャッシュファイルを分ける（これにより以前のキャッシュと混在しない）
+    # ユーザーごとにキャッシュファイルを分ける
     cache_path = f".cache-{client_id}"
 
     return SpotifyOAuth(
