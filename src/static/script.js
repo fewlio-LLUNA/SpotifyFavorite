@@ -14,42 +14,37 @@ document.addEventListener("DOMContentLoaded", () => {
         "./static/images/keyaki.jpg",
     ];
 
-    // 画像をスライダーに追加
-    images.forEach(imgUrl => {
-        const imgElement = document.createElement("img");
-        imgElement.src = imgUrl;
-        carouselTrack.appendChild(imgElement);
-    });
+    // 画像リストを50回繰り返す
+    const repeatedImages = [];
+    for (let i = 0; i < 50; i++) {
+        repeatedImages.push(...images);
+    }
 
-    // クローンを作成して無限ループを実現
-    images.forEach(imgUrl => {
+    // 画像をスライダーに追加
+    repeatedImages.forEach(imgUrl => {
         const imgElement = document.createElement("img");
         imgElement.src = imgUrl;
         carouselTrack.appendChild(imgElement);
     });
 
     let scrollAmount = 0;
-    const slideWidth = carouselTrack.firstElementChild.clientWidth;
-
+    const slideSpeed = 0.5; // 1フレームあたりの移動距離（px）
+    
     function moveCarousel() {
-        scrollAmount += slideWidth;
-        carouselTrack.style.transition = "transform 0.5s ease-in-out";
+        scrollAmount += slideSpeed;
         carouselTrack.style.transform = `translateX(-${scrollAmount}px)`;
 
-        // 画像が最後までスライドしたら、最初に戻す
-        if (scrollAmount >= slideWidth * images.length) {
-            setTimeout(() => {
-                carouselTrack.style.transition = "none";  // 一時的にトランジションを無効にする
-                scrollAmount = 0;
-                carouselTrack.style.transform = "translateX(0)";  // 先頭に戻す
-
-                // トランジションを再適用
-                setTimeout(() => {
-                    carouselTrack.style.transition = "transform 0.5s ease-in-out";
-                }, 20);  // 20msの遅延を入れてからトランジションを再度適用
-            }, 500);  // アニメーション終了後に0.5秒待つ
+        // 一定量スクロールしたら、最初の方に戻す
+        const firstImageWidth = carouselTrack.firstElementChild.clientWidth;
+        const totalScrollWidth = firstImageWidth * repeatedImages.length;
+        
+        if (scrollAmount >= totalScrollWidth / 2) {
+            scrollAmount = 0;
+            carouselTrack.style.transform = `translateX(0)`;
         }
+
+        requestAnimationFrame(moveCarousel);
     }
 
-    setInterval(moveCarousel, 2000);
+    moveCarousel(); // アニメーション開始
 });

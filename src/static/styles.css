@@ -154,7 +154,7 @@ button {
     display: flex;
     gap: 20px;
     white-space: nowrap;
-    animation: scrollLeft 30s linear infinite; /* 無限ループ */
+    /*animation: scrollLeft 30s linear infinite; /* 無限ループ */
 }
 
 .carousel-track img {
@@ -202,4 +202,16 @@ button {
     height: 130px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+}
+
+.message {
+    margin: 10px auto;  /* 上下10px、左右自動で中央揃え */
+    text-align: center;  /* テキストを中央揃え */
+    display: block;  /* ブロック要素にすることで中央配置が適用されやすくなる */
+    width: fit-content;  /* コンテンツの幅に合わせる */
+    padding: 10px 20px;  /* 余白をつけて見やすく */
+    background-color: rgba(0, 255, 0, 0.2); /* ネオン緑の半透明背景 */
+    color: #00ff00;  /* ネオン緑の文字 */
+    border-radius: 10px;  /* 角を丸く */
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);  /* ネオン風の光る効果 */
 }
