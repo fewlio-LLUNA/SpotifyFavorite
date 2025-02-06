@@ -18,6 +18,7 @@ h1, h3 {
     color: #00ff00; /* ネオン緑 */
     text-shadow: 0 0 2px #00ff00, 0 0 5px #00ff00, 0 0 10px #00ff00;
     text-align: center; /* 中央に配置 */
+    margin-bottom: 20px;
 }
 
 h1 {
@@ -214,4 +215,5 @@ button {
     color: #88c795;  /* ネオン緑の文字 */
     border-radius: 10px;  /* 角を丸く */
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);  /* ネオン風の光る効果 */
+    margin-top: 10px;
 }
